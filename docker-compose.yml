@@ -1,0 +1,6 @@
+services:
+  spring-api-gradle:
+    image: spring-api-gradle
+    container_name: spring-api-gradle-container
+    ports:
+      - "8080:8080"
