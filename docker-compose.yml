@@ -1,8 +1,10 @@
 services:
   app:
+    image: gradle-crud-app
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: Gradle_Docker
     ports:
       - "8080:8080"
     networks:
