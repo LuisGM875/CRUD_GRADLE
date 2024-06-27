@@ -1,0 +1,6 @@
+services:
+  test-gradle-image:
+    image: test-gradle-image
+    container_name: test-gradle-container
+    ports:
+      - "8080:8080"
