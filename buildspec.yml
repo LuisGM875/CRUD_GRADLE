@@ -8,3 +8,10 @@ phases:
   build:
     commands:
       - docker build -t spring-api-gradle .
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: build_location
+  name: spring-api-gradle
+  discard-paths: no
