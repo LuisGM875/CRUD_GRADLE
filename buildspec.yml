@@ -3,7 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
+      - chmod +x ./gradlew
       - ./gradlew build
   build:
     commands:
-      - docker build -t your-image-name .
+      - docker build -t spring-api-gradle .
