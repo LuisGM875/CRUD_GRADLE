@@ -7,10 +7,13 @@ phases:
       - ./gradlew build
   build:
     commands:
-      - docker build -t spring-api-gradle .
+      - docker build -t your-image-name .
+  post_build:
+    commands:
+      - echo "[{\"name\": \"spring-api-gradle\", \"imageUri\": \"spring-api-gradle:latest\"}]" > imagedefinitions.json
+
 artifacts:
   files:
     - '**/*'
-  base-directory: .
-  name: spring-api-gradle
+    - imagedefinitions.json
   discard-paths: no
