@@ -1,0 +1,9 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - ./gradlew build
+  build:
+    commands:
+      - docker build -t your-image-name .
