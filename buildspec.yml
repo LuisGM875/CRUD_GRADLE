@@ -12,6 +12,6 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: build_location
+  base-directory: build/libs
   name: spring-api-gradle
   discard-paths: no
