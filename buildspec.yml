@@ -7,7 +7,7 @@ phases:
       - ./gradlew build
   build:
     commands:
-      - docker build -t your-image-name .
+      - docker build -t spring-api-gradle .
   post_build:
     commands:
       - echo "[{\"name\": \"spring-api-gradle\", \"imageUri\": \"spring-api-gradle:latest\"}]" > imagedefinitions.json
