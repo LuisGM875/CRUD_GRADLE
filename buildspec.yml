@@ -10,7 +10,7 @@ phases:
       - docker build -t spring-api-gradle .
   post_build:
     commands:
-      - echo '[{"name":"spring-api-gradle","imageUri":"123456789012.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest"}]' > imagedefinitions.json
+      - echo '[{"name":"spring-api-gradle","imageUri":"529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest"}]' > imagedefinitions.json
 
 artifacts:
   files:
