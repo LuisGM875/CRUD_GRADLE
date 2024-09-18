@@ -1,18 +1,26 @@
 version: 0.2
 
 phases:
-  install:
+  pre_build:
     commands:
-      - chmod +x ./gradlew
-      - ./gradlew build
+      - echo Logging in to Amazon ECR...
+      # Autenticarse en ECR usando el comando aws
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 529088260251.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle
+      - echo 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle
   build:
     commands:
+      - echo Building the Docker image...
+      # Construir la imagen Docker
       - docker build -t spring-api-gradle .
+      # Etiquetar la imagen para ECR
+      - docker tag spring-api-gradle:latest 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest
   post_build:
     commands:
-      - echo '[{"name":"spring-api-gradle","imageUri":"529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest"}]' > imagedefinitions.json
-
+      - echo Pushing the Docker image to ECR...
+      # Subir la imagen a ECR
+      - docker push 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest
 artifacts:
   files:
     - '**/*'
-  discard-paths: no
+    discard-paths: no
