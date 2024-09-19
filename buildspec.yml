@@ -13,13 +13,13 @@ phases:
       - ./gradlew build
       - echo Building the Docker image...
       - docker build -t spring-api-gradle .
-      - docker tag spring-api-gradle:latest 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest  # Asegúrate de etiquetar correctamente
+      - docker tag spring-api-gradle:latest 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest  # Etiquetar la imagen con 'latest'
   post_build:
     commands:
       - echo Pushing the Docker image to ECR...
-      - docker push docker push 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest  # Empuja solo una imagen con el tag 'latest'
+      - docker push 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest  # Empuja la imagen a ECR
       - echo Creating imagedefinitions.json file...
-      - printf '[{"name":"container_name","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
+      - printf '[{"name":"container_name","imageUri":"%s"}]' 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest > imagedefinitions.json
       
 artifacts:
   files:
