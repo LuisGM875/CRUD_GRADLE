@@ -4,26 +4,23 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      # Autenticarse en ECR usando el comando aws
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 529088260251.dkr.ecr.us-east-1.amazonaws.com
-      - echo 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle
-      - chmod +x ./gradlew
-      - ./gradlew build
-      
+      - REPOSITORY_URI=529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle
+      - echo $REPOSITORY_URI
   build:
     commands:
+      - echo Building the JAR file with Gradle...
+      - ./gradlew build
       - echo Building the Docker image...
-      # Construir la imagen Docker
       - docker build -t spring-api-gradle .
-      # Etiquetar la imagen para ECR
-      - docker tag spring-api-gradle:latest 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest
+      - docker tag spring-api-gradle:latest $REPOSITORY_URI:latest  # Asegúrate de etiquetar correctamente
   post_build:
     commands:
       - echo Pushing the Docker image to ECR...
-      # Subir la imagen a ECR
-      - docker push 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest
-      - echo '[{"name":"spring-api-gradle","imageUri":"529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest"}]' > imagedefinitions.json
-
+      - docker push $REPOSITORY_URI:latest  # Empuja solo una imagen con el tag 'latest'
+      - echo Creating imagedefinitions.json file...
+      - printf '[{"name":"container_name","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
 artifacts:
   files:
     - '**/*'
+    - imagedefinitions.json
