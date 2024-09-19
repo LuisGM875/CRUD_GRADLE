@@ -1,13 +1,25 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - echo Installing Terraform...
+      - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.5.2/terraform_1.5.2_linux_amd64.zip
+      - unzip terraform.zip
+      - mv terraform /usr/local/bin/
+      - terraform --version
+
   pre_build:
     commands:
+      - echo Initializing Terraform...
+      - terraform init
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 529088260251.dkr.ecr.us-east-1.amazonaws.com
       - echo 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle
   build:
     commands:
+      - echo Applying Terraform plan...
+      - terraform apply -auto-approve
       - echo Building the JAR file with Gradle...
       - chmod +x ./gradlew
       - ./gradlew build
@@ -20,7 +32,11 @@ phases:
       - docker push 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest  # Empuja la imagen a ECR
       - echo Creating imagedefinitions.json file...
       - printf '[{"name":"spring-api-gradle","imageUri":"%s"}]' 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest > imagedefinitions.json
-      
+  finalize:
+    commands:
+      - echo Destroying Terraform resources...
+      - terraform destroy -auto-approve
+
 artifacts:
   files:
     - '**/*'
