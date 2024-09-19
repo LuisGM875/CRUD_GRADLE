@@ -18,7 +18,6 @@ phases:
   build:
     commands:
       - echo Running Terraform Init...
-      - cd terraform
       - terraform init  # Inicializa Terraform en el directorio donde están los archivos .tf
       - echo Running Terraform Plan...
       - terraform plan -out tfplan
