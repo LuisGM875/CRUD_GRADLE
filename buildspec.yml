@@ -11,15 +11,19 @@ phases:
 
   pre_build:
     commands:
-      - echo Initializing Terraform...
-      - terraform init
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 529088260251.dkr.ecr.us-east-1.amazonaws.com
       - echo 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle
   build:
     commands:
-      - echo Applying Terraform plan...
-      - terraform apply -auto-approve
+      - echo Running Terraform Init...
+      - cd terraform
+      - terraform init  # Inicializa Terraform en el directorio donde están los archivos .tf
+      - echo Running Terraform Plan...
+      - terraform plan -out tfplan
+      - echo Applying Terraform Configuration...
+      - terraform apply -auto-approve  # Aplica la configuración de Terraform
+      - cd ..
       - echo Building the JAR file with Gradle...
       - chmod +x ./gradlew
       - ./gradlew build
