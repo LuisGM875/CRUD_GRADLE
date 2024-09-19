@@ -18,13 +18,14 @@ phases:
   build:
     commands:
       - echo Running Terraform Init...
+      - cd terraform
       - terraform init  # Inicializa Terraform en el directorio donde están los archivos .tf
       - echo Running Terraform Plan...
-      - terraform plan -out tfplan
+      - terraform plan -out=tfplan
       - echo Applying Terraform Configuration...
       - terraform apply -auto-approve  # Aplica la configuración de Terraform
-      - cd ..
       - echo Building the JAR file with Gradle...
+      - cd ..
       - chmod +x ./gradlew
       - ./gradlew build
       - echo Building the Docker image...
