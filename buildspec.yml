@@ -32,8 +32,6 @@ phases:
       - docker push 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest  # Empuja la imagen a ECR
       - echo Creating imagedefinitions.json file...
       - printf '[{"name":"spring-api-gradle","imageUri":"%s"}]' 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest > imagedefinitions.json
-  finalize:
-    commands:
       - echo Destroying Terraform resources...
       - terraform destroy -auto-approve
 
