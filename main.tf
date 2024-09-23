@@ -7,9 +7,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "codepipeline-us-east-1-330520067239"  # Tu bucket de S3
-    key    = "terraform.tfstate"  # Ruta dentro del bucket para almacenar el estado
-    region = "us-east-1"        # Región del bucket
+    bucket         = "codepipeline-us-east-1-330520067239"
+    key            = "terraform/state"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
   }
 }
 
