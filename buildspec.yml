@@ -5,7 +5,7 @@ phases:
     commands:
       - echo Installing Terraform...
       - rm -rf terraform  # Eliminar cualquier archivo o directorio llamado 'terraform'
-      - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
+      - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.9.5./terraform_1.9.5._linux_amd64.zip
       - unzip terraform.zip
       - mv terraform /usr/local/bin/
       - terraform --version
