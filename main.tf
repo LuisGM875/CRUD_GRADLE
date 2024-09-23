@@ -10,7 +10,7 @@ terraform {
     bucket         = "codepipeline-us-east-1-330520067239"
     key            = "terraform/state"
     region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
+    dynamodb_table = "dynamo"
     encrypt        = true
   }
 }
