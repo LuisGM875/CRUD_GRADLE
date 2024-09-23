@@ -9,7 +9,7 @@ terraform {
   backend "s3" {
     bucket = "video-tf-backend"
     key    = "backed"
-    region = "us-east-1"
+    region = "ap-south-1"
   }
 }
 
