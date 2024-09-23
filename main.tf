@@ -7,12 +7,13 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "video-tf-backend"
-    key    = "backed"
-    region = "ap-south-1"
+    bucket = "codepipeline-us-east-1-330520067239"  # Tu bucket de S3
+    key    = "terraform/state"  # Ruta dentro del bucket para almacenar el estado
+    region = "us-east-1"        # Región del bucket
   }
 }
 
 provider "aws" {
-  region = "ap-south-1"
+  region = "us-east-1"
 }
+
