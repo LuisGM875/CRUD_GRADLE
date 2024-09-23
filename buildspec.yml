@@ -24,11 +24,12 @@ phases:
       - echo Building the JAR file with Gradle...
       - chmod +x ./gradlew
       - ./gradlew build
-  post_build:
-    commands:
       - echo Building the Docker image...
       - docker build -t spring-api-gradle .
       - docker tag spring-api-gradle:latest 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest  # Etiquetar la imagen con 'latest'
+
+  post_build:
+    commands:
       - echo Pushing the Docker image to ECR...
       - docker push 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest  # Empuja la imagen a ECR
       - echo Creating imagedefinitions.json file...
