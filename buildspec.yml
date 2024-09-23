@@ -3,9 +3,11 @@ version: 0.2
 phases:
   install:
     commands:
+      - sudo yum update -y
+      - sudo yum install -y unzip
       - echo Installing Terraform...
       - rm -rf terraform  # Eliminar cualquier archivo o directorio llamado 'terraform'
-      - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.5.2/terraform_1.5.2_linux_amd64.zip
+      - curl -O terraform.zip https://releases.hashicorp.com/terraform/1.5.2/terraform_1.5.2_linux_amd64.zip
       - unzip terraform.zip
       - mv terraform /usr/local/bin/
       - terraform --version
