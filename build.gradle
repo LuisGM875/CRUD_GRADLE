@@ -39,3 +39,28 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+
+apply plugin: 'java'
+
+task terraformInit(type: Exec) {
+    commandLine 'terraform', 'init'
+}
+
+task terraformValidate(type: Exec) {
+    commandLine 'terraform', 'validate'
+}
+
+task terraformPlan(type: Exec) {
+    commandLine 'terraform', 'plan', '-out=tfplan'
+}
+
+task terraformApply(type: Exec) {
+    commandLine 'terraform', 'apply', '-auto-approve', 'tfplan'
+}
+
+terraformApply.dependsOn terraformPlan
+terraformPlan.dependsOn terraformValidate
+terraformValidate.dependsOn terraformInit
+
+build.dependsOn terraformApply
