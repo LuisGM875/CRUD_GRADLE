@@ -35,13 +35,8 @@ phases:
       - printf '[{"name":"spring-api-gradle","imageUri":"%s"}]' 529088260251.dkr.ecr.us-east-1.amazonaws.com/spring-api-gradle:latest > imagedefinitions.json
       - echo Destroying Terraform resources...
       - terraform destroy -auto-approve
-      - aws apigateway put-integration --rest-api-id i253treew3 \
-        --resource-id xodbdbrcl3 \
-        --http-method GET \
-        --type HTTP_PROXY \
-        --integration-http-method GET \
-        --uri "http://LoadTest-2236b642b7d861ee.elb.us-east-1.elb.amazonaws.com/api/v1/hello" \
-        --region us-east-1
+      - aws apigateway put-integration --rest-api-id i253treew3 --resource-id xodbdbrcl3 --http-method GET --type HTTP_PROXY --integration-http-method GET --uri "http://LoadTest-2236b642b7d861ee.elb.us-east-1.elb.amazonaws.com/api/v1/hello" --region us-east-1
+
 
 
 artifacts:
