@@ -1,6 +1,14 @@
 version: 0.0
 os: linux
 files:
-  - source: build/libs/tu-app.jar
-    destination: /home/ec2-user/app
-
+  - source: imagedefinitions.json
+    destination: /opt/codedeploy-agent/deployment-root/  # Cambia la ruta según lo necesites
+hooks:
+  BeforeInstall:
+    - location: scripts/stop_container.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: scripts/start_container.sh
+      timeout: 300
+      runas: root
