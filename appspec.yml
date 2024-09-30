@@ -3,7 +3,4 @@ os: linux
 files:
   - source: build/libs/tu-app.jar
     destination: /home/ec2-user/app
-hooks:
-  AfterInstall:
-    - location: scripts/restart_server.sh
-      runas: ec2-user
+
